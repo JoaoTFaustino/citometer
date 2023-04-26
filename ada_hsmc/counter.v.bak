@@ -1,0 +1,50 @@
+module counter(
+	CLOCK,
+	RESET,
+	DATA,
+	TRIGGER
+);
+			
+input 				CLOCK;
+input 				RESET;
+output	[13:0]	DATA;
+output				TRIGGER;
+
+			
+reg 		[6:0] 	c;		
+		
+			
+initial 
+begin
+	counter <= 0;
+	c <= 0;
+	trigger <= 0;
+end		
+			
+always @ (posedge clock)
+begin
+
+	trigger <= 0;
+	c <= c + 1;
+
+	if (reset)
+	begin
+		counter <= 0;
+		c <= 0;
+	end
+	
+	else if (c == 99)
+	begin
+		trigger <= 1;
+		c <= 0;
+		
+		if (counter == 16383)
+			counter <= 0;
+		else
+			counter <= counter+ 1;
+	end
+	
+end
+
+			
+endmodule

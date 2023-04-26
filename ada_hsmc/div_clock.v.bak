@@ -1,0 +1,30 @@
+module DIV_CLOCK(
+	CLOCK_IN,
+	CLOCK_OUT,
+	FREQUENCY,
+	DIVIDER
+);
+
+input CLOCK_IN;
+input FREQUENCY;
+input DIVIDER;
+output CLOCK_OUT;
+
+assign CLOCK_OUT = cCLOCK;
+
+reg div = FREQUENCY/DIVIDER;
+
+always @ (posedge CLOCK_IN)
+begin
+
+	if(cCLOCK==div) 
+		begin
+			cCLOCK <= 0;
+		end
+	else
+		cCLOCK<=cCLOCK+1'b1;
+	
+end
+
+			
+endmodule

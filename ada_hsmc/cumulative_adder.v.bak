@@ -1,0 +1,9 @@
+module CUMULATIVE_ADDER(
+	DATA_IN,
+	DATA_OUT,
+	TRIGGER
+);
+
+input DATA_IN;
+output DATA_OUT;
+output TRIGGER;

@@ -1,0 +1,8 @@
+module DOWNSAMPLER (
+	CLOCK_IN,
+	DATA_IN,
+	DATA_OUT,
+	ENABLE,
+	TRIGGER
+
+);
