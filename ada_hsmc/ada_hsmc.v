@@ -111,7 +111,50 @@ module ada_hsmc(
 	input 		          		SMA_DAC4
 );
 
+parameter MAX_SAMPLES = 1024;									// 1024 tamanho máximo do buffer
+parameter MAX_CUM_SAMPLES = 512;								// 512 tamanho maximo do buffer = soma accumulativa
+parameter ADDR_BITS = $clog2(MAX_SAMPLES); 				// número de bits necessário para endereçar todo o buffer FPGA-HPS
+parameter ADDR_CUM_BITS = $clog2(MAX_CUM_SAMPLES); 	// número de bits necessário para endereçar todo o buffer FPGA
+parameter DWIDTH = 14;											// Largura de bits de dados de entrada
+parameter EXPERIENCE_TIME_BITS = 36;						// tempo de experencia (36 bits ) 
+parameter PIO_WIDTH = 32;
 
+
+reg [EXPERIENCE_TIME_BITS-1:0] experience_time; // Dados com o tempo de experiencia
+wire trigger_sum;
+wire reset;
+wire enable;
+
+assign reset = SW[9];
+assign enable = SW[0];
+
+wire [DWIDTH-1:0] data_out; 				// Dados de saida do Gerador Simulado
+wire [DWIDTH-1:0] data_in;  				// Dados de entrada no downsampler
+
+wire [DWIDTH-1:0] oversampling_out; 	// Dados de Saida do downsampler
+wire [DWIDTH*2-1:0] cumulative_sum; 	// Dados da soma acumulativa
+
+/*
+Buffer Circular Partilhado entre FPGA e HPS
+FPGA - escreve
+HPS - lê
+*/
+
+reg [ADDR_BITS-1:0] hps_read_addr;					// ponteiro de leitura	
+reg [ADDR_BITS-1:0] hps_write_addr;					// ponteiro de escrita
+reg [DWIDTH-1:0] hps_buffer [MAX_SAMPLES-1:0];	// buffer circular
+
+/*
+Buffer que guarda as ultimas 1024 amostras na FPGA
+*/
+
+reg [ADDR_CUM_BITS-1:0] wr_addr;  								// ponteiro de escrita
+reg [ADDR_CUM_BITS-1:0] rd_addr;  								// ponteiro de leitura
+reg [DWIDTH-1:0] data_buffer [MAX_CUM_SAMPLES-1:0]; 		// buffer circular
+
+
+assign data_in = data_out; 
+// assign LEDR[8:0] = oversampling_out[8:0];
 
 //=======================================================
 //  REG/WIRE declarations
@@ -170,7 +213,12 @@ module ada_hsmc(
         .memory_mem_odt                  			(HPS_DDR3_ODT),                  //            .mem_odt
         .memory_mem_dm                   			(HPS_DDR3_DM),                   //            .mem_dm
         .memory_oct_rzqin                			(HPS_DDR3_RZQ),                 	//            .oct_rzqin
-
+		  .data_in_cumsum_external_connection_export  (cumulative_sum),  //  data_in_cumsum_external_connection.export
+        .data_in_samples_external_connection_export (data_in), // data_in_samples_external_connection.export
+        .data_in_exptime_external_connection_export (experience_time[31:0]), // data_in_exptime_external_connection.export
+        .data_in_trigger_external_connection_export (trigger_sum),  // data_in_trigger_external_connection.export
+		  .data_out_readpointer_external_connection_export (hps_read_addr),  // data_out_readpointer_external_connection.export
+		  .data_in_readbuffer_external_connection_export   (hps_buffer[hps_read_addr][8:0] )    //   data_in_readbuffer_external_connection.export
 	 );
 
 	 
@@ -178,12 +226,17 @@ module ada_hsmc(
 	  .refclk(CLOCK_50),
 	  .rst(1'b0),
 	  .outclk_0(CLK_65)
-					); 
-
+					);
 					
-   THDB_ADA thdb_ada (
+	pll_51_20  pll_51_20   (
+	  .refclk(CLOCK_50),
+	  .rst(1'b0),
+	  .outclk_0(CLK_OVERSAMPLING)
+					); 
+					
+   THDB_ADA thdb_ada (								// Clock 51.2MHz
 		.CLOCK_50	 (CLOCK_50),
-		.CLOCK_65	 (CLK_65),
+		.CLOCK_65	 (CLK_65),				
 		.ADC_CLK_A	 (ADC_CLK_A),
 		.ADC_CLK_B   (ADC_CLK_B),
 		.ADC_DA		 (ADC_DA),
@@ -205,25 +258,218 @@ module ada_hsmc(
 	
 	);
 
-	
+	/*
 	COUNTER counter(
-		.CLOCK_IN (CLK_65),
+		.CLOCK_IN (CLK_2HZ),
 		.RESET (SW[9]),
 		.DATA (LEDR[8:0]),
 		.ENABLE (SW[0]),
 		.TRIGGER (LEDR[9]),
 	);
+	*/
+	/*
+	LED_UPDATER led_updater(
+		.CLOCK_IN (CLK_1HZ),
+		.RESET (reset),
+		.DATA (data_out),
+		.ENABLE (enable),
+		.TRIGGER (LEDR[9])
+	);
+	*/
 	
-	CUMULATIVE_ADDER cumulative_adder(
-		.DATA_IN(),
-		.DATA_OUT(),
-		.TRIGGER()
+	RANDOM_GENERATOR random_generator(
+		.CLOCK_IN(CLK_1HZ),					 // Clock Signal Digital - 200kHz
+		.RESET(reset),
+		.DATA(data_out),							 // Como é simulação de ADC -> Sinal convertido vem logo a 200kHZ 
+		.ENABLE(enable)
 	);
 	
+	/*
+	DOWNSAMPLER #(
+		.DOWNSAMPLE_FACTOR(256) // 4^4 = 256 Oversampling de 51.2MHz
+	) downsampler(
+		.CLOCK_IN (CLK_OVERSAMPLING), 		// Clock Oversampling - 51.2MHz				
+		.RESET (reset), 	
+		.ENABLE (enable),		
+		.DATA_IN (data_in), 						// Sinal de Entrada (51.2MHz)
+		.DATA_OUT (oversampling_out)			// Sinal DownSampled (200KHz)
+	);
+	*/
+	
+	CUMULATIVE_ADDER cumulative_adder (
+		.CLOCK (CLK_1HZ),							// Clock 200KHz
+		.RESET (reset),
+		.ENABLE (1'b1),
+		.DATA_IN (data_in),						// Sinal DownSampled (200KHz) SUBSTITUIR data_in por oversampling_out
+		.CUSUM (cumulative_sum),				// Soma das ultimas 512 amostras
+		.TRIGGER (trigger_sum)					// Trigger quando passa de X
+	);
 	
 //=======================================================
 //  Structural coding
 //=======================================================
+
+integer i;
+
+/*
+Buffer FPGA
+*/ 
+  
+initial begin
+	wr_addr <= 0;
+	rd_addr <= 0;
+	
+	experience_time <= 0;
+	
+	for (i = 0; i < MAX_CUM_SAMPLES; i = i + 1) 
+	begin
+		data_buffer[i] <= 0;
+	end
+end
+
+/*
+Writing
+*/
+
+always @(posedge CLK_1HZ) 
+begin
+	if (reset) 
+	begin
+		wr_addr <= 0;
+		for (i = 0; i < MAX_CUM_SAMPLES; i = i + 1) 
+		begin
+			data_buffer[i] <= 0;
+		end
+	end 
+	
+	else if (enable) 
+	begin
+		data_buffer[wr_addr] <= data_in;
+		wr_addr <= (wr_addr + 1) % MAX_CUM_SAMPLES;
+		
+		// UPDATE TIME of EXPERIENCE
+		
+		experience_time <= experience_time + 1;
+		
+	end
+end
+
+/*
+Reading
+*/
+
+always @(posedge CLK_1HZ) 
+begin
+	if (reset) 
+	begin
+		rd_addr <= 0;
+	end 
+	
+	else if (enable) 
+	begin
+		rd_addr <= (rd_addr + 1) % MAX_SAMPLES;
+	end
+end
+
+
+/*
+Buffer FPGA - HPS
+*/
+
+initial begin
+	hps_read_addr <= 0;
+	hps_write_addr <= 0;
+	
+	for (i = 0; i < MAX_SAMPLES; i = i + 1) 
+	begin
+		hps_buffer[i] <= 0;
+	end
+end
+
+/*
+Writing
+*/
+
+always @(posedge CLK_1HZ) 
+begin
+	if (reset) 
+	begin
+		hps_write_addr <= 0;
+		for (i = 0; i < MAX_SAMPLES; i = i + 1) 
+		begin
+			hps_buffer[i] <= 0;
+		end
+	end 
+	
+	else if (enable) 
+	begin
+		hps_buffer[hps_write_addr] <= data_in;
+		hps_write_addr <= (hps_write_addr + 1) % MAX_SAMPLES;
+	end
+end
+
+
+
+
+
+
+
+
+
+
+/*
+CLOCK de 1HZ e 200kHz
+*/
+reg CLK_1HZ;
+reg [25:0] count1HZ;
+
+reg CLK_200KHZ;
+reg [25:0] count200KHZ;
+
+initial begin
+	CLK_1HZ <= 0;
+	CLK_200KHZ <= 0;
+	count1HZ<=0;
+	count200KHZ <= 0;
+end
+
+always @ (posedge CLOCK_50)
+begin
+	if(count200KHZ==249)	 // 200kHz
+		begin
+			count200KHZ<=0;
+			CLK_200KHZ <= ~CLK_200KHZ;
+	   end
+	else
+		count200KHZ<=count200KHZ+1'b1;
+end
+
+
+
+
+always @ (posedge CLOCK_50)
+begin
+	if(count1HZ==12499999)	 // 4Hz
+		begin
+			count1HZ<=0;
+			CLK_1HZ <= ~CLK_1HZ;
+	   end
+	else
+		count1HZ<=count1HZ+1'b1;
+end
+
+
+
+
+
+
+//assign LEDR[8:0] = data_buffer[rd_addr][8:0];
+//assign LEDR[9] = trigger_sum;
+//assign LEDR[8:0] = oversampling_out [8:0];
+//assign LEDR[8:0] = data_out [8:0];
+
+
+
 /*
 reg [25:0] count; 
 reg led_level;

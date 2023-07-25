@@ -7,9 +7,7 @@ module COUNTER(
 );
 
 /*
-
 Counter from 0 to 511
-
 */
 			
 input 				CLOCK_IN;

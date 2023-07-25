@@ -1,6 +1,12 @@
 
 module hps (
 	clk_clk,
+	data_in_cumsum_external_connection_export,
+	data_in_exptime_external_connection_export,
+	data_in_readbuffer_external_connection_export,
+	data_in_samples_external_connection_export,
+	data_in_trigger_external_connection_export,
+	data_out_readpointer_external_connection_export,
 	hps_io_hps_io_emac1_inst_TX_CLK,
 	hps_io_hps_io_emac1_inst_TXD0,
 	hps_io_hps_io_emac1_inst_TXD1,
@@ -55,6 +61,12 @@ module hps (
 	memory_oct_rzqin);	
 
 	input		clk_clk;
+	input	[27:0]	data_in_cumsum_external_connection_export;
+	input	[31:0]	data_in_exptime_external_connection_export;
+	input	[31:0]	data_in_readbuffer_external_connection_export;
+	input	[8:0]	data_in_samples_external_connection_export;
+	input		data_in_trigger_external_connection_export;
+	output	[8:0]	data_out_readpointer_external_connection_export;
 	output		hps_io_hps_io_emac1_inst_TX_CLK;
 	output		hps_io_hps_io_emac1_inst_TXD0;
 	output		hps_io_hps_io_emac1_inst_TXD1;

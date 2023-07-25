@@ -316,14 +316,10 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_STP
 #============================================================
 
 
-set_global_assignment -name QSYS_FILE hps.qsys
-set_global_assignment -name SDC_FILE ada_hsmc.SDC
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name QIP_FILE pll_65.qip
-set_global_assignment -name SIP_FILE pll_65.sip
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -543,7 +539,6 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_100MHZ
-set_global_assignment -name VERILOG_FILE thdb_ada.v
 set_location_assignment PIN_AA28 -to ADA_SCL
 set_location_assignment PIN_AE29 -to ADA_SDA
 set_location_assignment PIN_A10 -to ADC_CLK_A
@@ -613,8 +608,16 @@ set_location_assignment PIN_G8 -to DAC_DB[13]
 set_location_assignment PIN_B3 -to DAC_MODE
 set_location_assignment PIN_C3 -to DAC_WRT_A
 set_location_assignment PIN_F9 -to DAC_WRT_B
+set_global_assignment -name QSYS_FILE hps.qsys
+set_global_assignment -name SDC_FILE ada_hsmc.SDC
+set_global_assignment -name QIP_FILE pll_65.qip
+set_global_assignment -name SIP_FILE pll_65.sip
+set_global_assignment -name VERILOG_FILE thdb_ada.v
 set_global_assignment -name VERILOG_FILE counter.v
-set_global_assignment -name VERILOG_FILE div_clock.v
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name VERILOG_FILE cumulative_adder.v
 set_global_assignment -name VERILOG_FILE downsampler.v
+set_global_assignment -name VERILOG_FILE led_updater.v
+set_global_assignment -name QIP_FILE pll_51_20.qip
+set_global_assignment -name SIP_FILE pll_51_20.sip
+set_global_assignment -name VERILOG_FILE random_generator.v
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
