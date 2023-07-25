@@ -4,7 +4,6 @@ preplace inst hps.hps_0.usb1 -pg 1
 preplace inst hps.hps_0.spim0 -pg 1
 preplace inst hps.hps_0.i2c1 -pg 1
 preplace inst hps.hps_0.fpgamgr -pg 1
-preplace inst hps.inA_gpio -pg 1 -lvl 3 -y 30
 preplace inst hps.hps_0.dcan0 -pg 1
 preplace inst hps.hps_0.spim1 -pg 1
 preplace inst hps.hps_0.i2c2 -pg 1
@@ -12,20 +11,21 @@ preplace inst hps.hps_0.dma -pg 1
 preplace inst hps.hps_0.eosc1 -pg 1
 preplace inst hps.hps_0.bridges -pg 1
 preplace inst hps.hps_0.fpga_interfaces -pg 1
-preplace inst hps.hps_0 -pg 1 -lvl 1 -y 240
-preplace inst hps.trigger -pg 1 -lvl 3 -y 350
+preplace inst hps.hps_0 -pg 1 -lvl 1 -y 180
 preplace inst hps.hps_0.dcan1 -pg 1
 preplace inst hps.hps_0.i2c3 -pg 1
 preplace inst hps.hps_0.gpio0 -pg 1
 preplace inst hps.hps_0.f2s_sdram_ref_clk -pg 1
 preplace inst hps.hps_0.eosc2 -pg 1
 preplace inst hps.hps_0.hps_io -pg 1
-preplace inst hps.led -pg 1 -lvl 3 -y 450
-preplace inst hps.inB_gpio -pg 1 -lvl 3 -y 130
+preplace inst hps.data_in_exptime -pg 1 -lvl 3 -y 180
+preplace inst hps.data_in_cumsum -pg 1 -lvl 3 -y 690
+preplace inst hps.led -pg 1 -lvl 3 -y 390
 preplace inst hps.hps_0.axi_sdram -pg 1
 preplace inst hps.hps_0.gpio1 -pg 1
 preplace inst hps.hps_0.wd_timer0 -pg 1
 preplace inst hps.hps_0.arm_gic_0 -pg 1
+preplace inst hps.data_in_samples -pg 1 -lvl 3 -y 490
 preplace inst hps.hps_0.scu -pg 1
 preplace inst hps.hps_0.nand0 -pg 1
 preplace inst hps.hps_0.gpio2 -pg 1
@@ -41,6 +41,7 @@ preplace inst hps.hps_0.sysmgr -pg 1
 preplace inst hps.hps_0.l3regs -pg 1
 preplace inst hps.hps_0.gmac1 -pg 1
 preplace inst hps.hps_0.timer1 -pg 1
+preplace inst hps.data_in_readbuffer -pg 1 -lvl 3 -y 80
 preplace inst hps.hps_0.timer2 -pg 1
 preplace inst hps.hps_0.f2s_periph_ref_clk -pg 1
 preplace inst hps.hps_0.hps_io.border -pg 1
@@ -48,27 +49,30 @@ preplace inst hps.hps_0.timer3 -pg 1
 preplace inst hps.hps_0.rstmgr -pg 1
 preplace inst hps.hps_0.arm_a9_0 -pg 1
 preplace inst hps.hps_0.clk_0 -pg 1
-preplace inst hps.out_gpio -pg 1 -lvl 3 -y 230
 preplace inst hps.hps_0.sdrctl -pg 1
 preplace inst hps.hps_0.clkmgr -pg 1
 preplace inst hps.hps_0.arm_a9_1 -pg 1
+preplace inst hps.data_out_readpointer -pg 1 -lvl 3 -y 280
 preplace inst hps.hps_0.L2 -pg 1
+preplace inst hps.data_in_trigger -pg 1 -lvl 3 -y 590
 preplace inst hps.hps_0.timer -pg 1
 preplace inst hps.hps_0.usb0 -pg 1
 preplace inst hps.hps_0.sdmmc -pg 1
 preplace inst hps.hps_0.i2c0 -pg 1
-preplace inst hps.clk_0 -pg 1 -lvl 2 -y 250
-preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.led_external_connection,(SLAVE)led.external_connection) 1 0 3 NJ 480 NJ 480 NJ
-preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)inA_gpio.external_connection,(SLAVE)hps.ina_gpio_external_connection) 1 0 3 NJ 60 NJ 60 NJ
-preplace netloc FAN_OUT<net_container>hps</net_container>(MASTER)clk_0.clk,(SLAVE)led.clk,(SLAVE)trigger.clk,(SLAVE)inB_gpio.clk,(SLAVE)inA_gpio.clk,(SLAVE)out_gpio.clk,(SLAVE)hps_0.h2f_lw_axi_clock) 1 0 3 210 200 NJ 220 800
-preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps_0.hps_io,(SLAVE)hps.hps_io) 1 0 1 NJ
-preplace netloc FAN_OUT<net_container>hps</net_container>(MASTER)clk_0.clk_reset,(SLAVE)out_gpio.reset,(SLAVE)inA_gpio.reset,(SLAVE)led.reset,(SLAVE)trigger.reset,(SLAVE)inB_gpio.reset) 1 2 1 820
-preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.trigger_external_connection,(SLAVE)trigger.external_connection) 1 0 3 NJ 380 NJ 380 NJ
-preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.memory,(SLAVE)hps_0.memory) 1 0 1 NJ
-preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.clk,(SLAVE)clk_0.clk_in) 1 0 2 NJ 360 NJ
-preplace netloc FAN_OUT<net_container>hps</net_container>(SLAVE)out_gpio.s1,(SLAVE)trigger.s1,(SLAVE)inB_gpio.s1,(SLAVE)inA_gpio.s1,(MASTER)hps_0.h2f_lw_axi_master,(SLAVE)led.s1) 1 1 2 520 240 780
-preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.out_gpio_external_connection,(SLAVE)out_gpio.external_connection) 1 0 3 NJ 180 NJ 200 NJ
-preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)inB_gpio.external_connection,(SLAVE)hps.inb_gpio_external_connection) 1 0 3 NJ 160 NJ 160 NJ
-preplace netloc POINT_TO_POINT<net_container>hps</net_container>(MASTER)hps_0.h2f_reset,(SLAVE)clk_0.clk_in_reset) 1 1 1 520
-levelinfo -pg 1 0 180 1010
-levelinfo -hier hps 190 330 590 850 1000
+preplace inst hps.clk_0 -pg 1 -lvl 2 -y 190
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.led_external_connection,(SLAVE)led.external_connection) 1 0 3 NJ 420 NJ 420 NJ
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.data_in_trigger_external_connection,(SLAVE)data_in_trigger.external_connection) 1 0 3 NJ 620 NJ 620 NJ
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.hps_io,(SLAVE)hps_0.hps_io) 1 0 1 NJ
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.data_out_readpointer_external_connection,(SLAVE)data_out_readpointer.external_connection) 1 0 3 NJ 310 NJ 310 NJ
+preplace netloc FAN_OUT<net_container>hps</net_container>(SLAVE)data_in_samples.s1,(SLAVE)data_in_cumsum.s1,(SLAVE)led.s1,(SLAVE)data_out_readpointer.s1,(MASTER)hps_0.h2f_lw_axi_master,(SLAVE)data_in_trigger.s1,(SLAVE)data_in_exptime.s1,(SLAVE)data_in_readbuffer.s1) 1 1 2 560 740 820
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps_0.memory,(SLAVE)hps.memory) 1 0 1 NJ
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.data_in_samples_external_connection,(SLAVE)data_in_samples.external_connection) 1 0 3 NJ 520 NJ 520 NJ
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.clk,(SLAVE)clk_0.clk_in) 1 0 2 NJ 140 NJ
+preplace netloc FAN_OUT<net_container>hps</net_container>(SLAVE)hps_0.h2f_lw_axi_clock,(MASTER)clk_0.clk,(SLAVE)led.clk,(SLAVE)data_in_readbuffer.clk,(SLAVE)data_in_trigger.clk,(SLAVE)data_out_readpointer.clk,(SLAVE)data_in_cumsum.clk,(SLAVE)data_in_exptime.clk,(SLAVE)data_in_samples.clk) 1 0 3 230 120 NJ 120 840
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)data_in_readbuffer.external_connection,(SLAVE)hps.data_in_readbuffer_external_connection) 1 0 3 NJ 40 NJ 40 NJ
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.data_in_exptime_external_connection,(SLAVE)data_in_exptime.external_connection) 1 0 3 NJ 100 NJ 100 NJ
+preplace netloc FAN_OUT<net_container>hps</net_container>(SLAVE)data_in_samples.reset,(SLAVE)data_in_cumsum.reset,(SLAVE)data_in_trigger.reset,(SLAVE)led.reset,(SLAVE)data_in_exptime.reset,(SLAVE)data_in_readbuffer.reset,(SLAVE)data_out_readpointer.reset,(MASTER)clk_0.clk_reset) 1 2 1 860
+preplace netloc EXPORT<net_container>hps</net_container>(SLAVE)hps.data_in_cumsum_external_connection,(SLAVE)data_in_cumsum.external_connection) 1 0 3 NJ 720 NJ 720 NJ
+preplace netloc POINT_TO_POINT<net_container>hps</net_container>(MASTER)hps_0.h2f_reset,(SLAVE)clk_0.clk_in_reset) 1 1 1 540
+levelinfo -pg 1 0 200 1100
+levelinfo -hier hps 210 350 630 930 1090

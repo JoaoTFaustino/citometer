@@ -150,9 +150,9 @@ TDO                          : AB9       : output :                   :         
 VCCPGM                       : AB10      : power  :                   : 1.8V/2.5V/3.0V/3.3V :           :                
 VCC_AUX                      : AB11      : power  :                   : 2.5V    :           :                
 RESERVED_INPUT               : AB12      :        :                   :         : 3A        :                
-RESERVED_INPUT               : AB13      :        :                   :         : 3B        :                
+HPS_LED                      : AB13      : bidir  : 3.3-V LVTTL       :         : 3B        : N              
 VCCIO3B                      : AB14      : power  :                   : 3.3V    : 3B        :                
-RESERVED_INPUT               : AB15      :        :                   :         : 3B        :                
+HPS_I2C1_SCLK                : AB15      : bidir  : 3.3-V LVTTL       :         : 3B        : N              
 VCC_AUX                      : AB16      : power  :                   : 2.5V    :           :                
 HEX2[1]                      : AB17      : output : 3.3-V LVTTL       :         : 4A        : Y              
 VCCPD3B4A                    : AB18      : power  :                   : 3.3V    : 3B, 4A    :                
@@ -162,7 +162,7 @@ HEX5[6]                      : AB21      : output : 3.3-V LVTTL       :         
 LEDR[8]                      : AB22      : output : 3.3-V LVTTL       :         : 5A        : Y              
 LEDR[1]                      : AB23      : output : 3.3-V LVTTL       :         : 5A        : Y              
 VCCIO5A                      : AB24      : power  :                   : 3.3V    : 5A        :                
-HPS_I2C1_SCLK                : AB25      : bidir  : 3.3-V LVTTL       :         : 5A        : N              
+RESERVED_INPUT               : AB25      :        :                   :         : 5A        :                
 RESERVED_INPUT               : AB26      :        :                   :         : 5A        :                
 RESERVED_INPUT               : AB27      :        :                   :         : 5B        :                
 SW[2]                        : AB28      : input  : 2.5 V             :         : 5B        : Y              
@@ -176,16 +176,16 @@ TCK                          : AC5       : input  :                   :         
 GND                          : AC6       : gnd    :                   :         :           :                
 AS_DATA3, DATA3              : AC7       :        :                   :         : 3A        :                
 GND                          : AC8       : gnd    :                   :         :           :                
-HPS_SPIM_MOSI                : AC9       : output : 3.3-V LVTTL       :         : 3A        : N              
+RESERVED_INPUT               : AC9       :        :                   :         : 3A        :                
 VCCPD3A                      : AC10      : power  :                   : 3.3V    : 3A        :                
 VCCIO3A                      : AC11      : power  :                   : 3.3V    : 3A        :                
-HPS_I2C2_SDAT                : AC12      : bidir  : 3.3-V LVTTL       :         : 3A        : N              
+HPS_LCM_D_C                  : AC12      : bidir  : 3.3-V LVTTL       :         : 3A        : N              
 VCCPD3B4A                    : AC13      : power  :                   : 3.3V    : 3B, 4A    :                
 RESERVED_INPUT               : AC14      :        :                   :         : 3B        :                
 VCCPD3B4A                    : AC15      : power  :                   : 3.3V    : 3B, 4A    :                
 GND                          : AC16      : gnd    :                   :         :           :                
 VCCPD3B4A                    : AC17      : power  :                   : 3.3V    : 3B, 4A    :                
-RESERVED_INPUT               : AC18      :        :                   :         : 4A        :                
+OSC_SMA_ADC4                 : AC18      : input  : 2.5 V             :         : 4A        : N              
 VCCPD3B4A                    : AC19      : power  :                   : 3.3V    : 3B, 4A    :                
 HEX3[4]                      : AC20      : output : 3.3-V LVTTL       :         : 4A        : Y              
 VCCIO4A                      : AC21      : power  :                   : 3.3V    : 4A        :                
@@ -194,7 +194,7 @@ LEDR[2]                      : AC23      : output : 3.3-V LVTTL       :         
 VREFB5AN0                    : AC24      : power  :                   :         : 5A        :                
 RESERVED_INPUT               : AC25      :        :                   :         : 5A        :                
 GND                          : AC26      : gnd    :                   :         :           :                
-RESERVED_INPUT               : AC27      :        :                   :         : 5A        :                
+HPS_LTC_GPIO                 : AC27      : bidir  : 3.3-V LVTTL       :         : 5A        : N              
 SW[6]                        : AC28      : input  : 2.5 V             :         : 5B        : Y              
 SW[8]                        : AC29      : input  : 2.5 V             :         : 5B        : Y              
 SW[3]                        : AC30      : input  : 2.5 V             :         : 5B        : Y              
@@ -222,7 +222,7 @@ HEX4[0]                      : AD21      : output : 3.3-V LVTTL       :         
 VCC_AUX                      : AD22      : power  :                   : 2.5V    :           :                
 GND                          : AD23      : gnd    :                   :         :           :                
 LEDR[3]                      : AD24      : output : 3.3-V LVTTL       :         : 4A        : Y              
-HPS_FLASH_DATA[2]            : AD25      : bidir  : 3.3-V LVTTL       :         : 5A        : N              
+RESERVED_INPUT               : AD25      :        :                   :         : 5A        :                
 RESERVED_INPUT               : AD26      :        :                   :         : 5A        :                
 RESERVED_INPUT               : AD27      :        :                   :         : 5A        :                
 VCCIO5A                      : AD28      : power  :                   : 3.3V    : 5A        :                
@@ -240,7 +240,7 @@ RESERVED_INPUT               : AE9       :        :                   :         
 GND                          : AE10      : gnd    :                   :         :           :                
 RESERVED_INPUT               : AE11      :        :                   :         : 3A        :                
 RESERVED_INPUT               : AE12      :        :                   :         : 3A        :                
-HPS_FLASH_DCLK               : AE13      : output : 3.3-V LVTTL       :         : 3B        : N              
+RESERVED_INPUT               : AE13      :        :                   :         : 3B        :                
 RESERVED_INPUT               : AE14      :        :                   :         : 3B        :                
 VCCIO3B                      : AE15      : power  :                   : 3.3V    : 3B        :                
 HEX1[2]                      : AE16      : output : 3.3-V LVTTL       :         : 4A        : Y              
@@ -254,8 +254,8 @@ HEX4[3]                      : AE23      : output : 3.3-V LVTTL       :         
 LEDR[6]                      : AE24      : output : 3.3-V LVTTL       :         : 4A        : Y              
 VCCIO4A                      : AE25      : power  :                   : 3.3V    : 4A        :                
 RESERVED_INPUT               : AE26      :        :                   :         : 5A        :                
-HPS_SPIM_MISO                : AE27      : input  : 3.3-V LVTTL       :         : 5A        : N              
-HPS_FLASH_DATA[1]            : AE28      : bidir  : 3.3-V LVTTL       :         : 5A        : N              
+RESERVED_INPUT               : AE27      :        :                   :         : 5A        :                
+RESERVED_INPUT               : AE28      :        :                   :         : 5A        :                
 ADA_SDA                      : AE29      : bidir  : 2.5 V             :         : 5B        : Y              
 VCCIO5B                      : AE30      : power  :                   : 2.5V    : 5B        :                
 GND                          : AF1       : gnd    :                   :         :           :                
@@ -265,9 +265,9 @@ RESERVED_INPUT               : AF4       :        :                   :         
 RESERVED_INPUT               : AF5       :        :                   :         : 3A        :                
 RESERVED_INPUT               : AF6       :        :                   :         : 3A        :                
 VCCIO3A                      : AF7       : power  :                   : 3.3V    : 3A        :                
-RESERVED_INPUT               : AF8       :        :                   :         : 3A        :                
+HPS_FLASH_NCSO               : AF8       : output : 3.3-V LVTTL       :         : 3A        : N              
 RESERVED_INPUT               : AF9       :        :                   :         : 3A        :                
-HPS_FLASH_DATA[0]            : AF10      : bidir  : 3.3-V LVTTL       :         : 3A        : N              
+RESERVED_INPUT               : AF10      :        :                   :         : 3A        :                
 RESERVED_INPUT               : AF11      :        :                   :         : 3B        :                
 GND                          : AF12      : gnd    :                   :         :           :                
 RESERVED_INPUT               : AF13      :        :                   :         : 3B        :                
@@ -285,22 +285,22 @@ LEDR[7]                      : AF24      : output : 3.3-V LVTTL       :         
 LEDR[5]                      : AF25      : output : 3.3-V LVTTL       :         : 4A        : Y              
 RESERVED_INPUT               : AF26      :        :                   :         : 4A        :                
 GND                          : AF27      : gnd    :                   :         :           :                
-HPS_GSENSOR_INT              : AF28      : bidir  : 3.3-V LVTTL       :         : 5A        : N              
-HPS_LCM_SPIM_CLK             : AF29      : output : 3.3-V LVTTL       :         : 5A        : N              
+HPS_SPIM_MOSI                : AF28      : output : 3.3-V LVTTL       :         : 5A        : N              
+HPS_FLASH_DATA[3]            : AF29      : bidir  : 3.3-V LVTTL       :         : 5A        : N              
 RESERVED_INPUT               : AF30      :        :                   :         : 5A        :                
-HPS_SPIM_SS                  : AG1       : output : 3.3-V LVTTL       :         : 3A        : N              
+RESERVED_INPUT               : AG1       :        :                   :         : 3A        :                
 RESERVED_INPUT               : AG2       :        :                   :         : 3A        :                
-HPS_I2C2_SCLK                : AG3       : bidir  : 3.3-V LVTTL       :         : 3A        : N              
+HPS_LCM_RST_N                : AG3       : bidir  : 3.3-V LVTTL       :         : 3A        : N              
 VCCIO3A                      : AG4       : power  :                   : 3.3V    : 3A        :                
-HPS_LED                      : AG5       : bidir  : 3.3-V LVTTL       :         : 3A        : N              
+RESERVED_INPUT               : AG5       :        :                   :         : 3A        :                
 RESERVED_INPUT               : AG6       :        :                   :         : 3A        :                
-RESERVED_INPUT               : AG7       :        :                   :         : 3A        :                
+HPS_I2C1_SDAT                : AG7       : bidir  : 3.3-V LVTTL       :         : 3A        : N              
 RESERVED_INPUT               : AG8       :        :                   :         : 3A        :                
 GND                          : AG9       : gnd    :                   :         :           :                
 RESERVED_INPUT               : AG10      :        :                   :         : 3B        :                
 RESERVED_INPUT               : AG11      :        :                   :         : 3B        :                
-HPS_SPIM_CLK                 : AG12      : output : 3.3-V LVTTL       :         : 3B        : N              
-RESERVED_INPUT               : AG13      :        :                   :         : 3B        :                
+RESERVED_INPUT               : AG12      :        :                   :         : 3B        :                
+HPS_KEY                      : AG13      : bidir  : 3.3-V LVTTL       :         : 3B        : N              
 GND                          : AG14      : gnd    :                   :         :           :                
 RESERVED_INPUT               : AG15      :        :                   :         : 3B        :                
 HEX0[3]                      : AG16      : output : 3.3-V LVTTL       :         : 4A        : Y              
@@ -313,19 +313,19 @@ HEX4[1]                      : AG22      : output : 3.3-V LVTTL       :         
 HEX4[4]                      : AG23      : output : 3.3-V LVTTL       :         : 4A        : Y              
 GND                          : AG24      : gnd    :                   :         :           :                
 LEDR[4]                      : AG25      : output : 3.3-V LVTTL       :         : 4A        : Y              
-HPS_LCM_SPIM_MOSI            : AG26      : output : 3.3-V LVTTL       :         : 4A        : N              
+RESERVED_INPUT               : AG26      :        :                   :         : 4A        :                
 RESERVED_INPUT               : AG27      :        :                   :         : 5A        :                
 RESERVED_INPUT               : AG28      :        :                   :         : 5A        :                
 VCCIO5A                      : AG29      : power  :                   : 3.3V    : 5A        :                
 RESERVED_INPUT               : AG30      :        :                   :         : 5A        :                
 GND                          : AH1       : gnd    :                   :         :           :                
 RESERVED_INPUT               : AH2       :        :                   :         : 3A        :                
-OSC_SMA_ADC4                 : AH3       : input  : 2.5 V             :         : 3A        : N              
-HPS_I2C_CONTROL              : AH4       : bidir  : 3.3-V LVTTL       :         : 3A        : N              
-HPS_FLASH_DATA[3]            : AH5       : bidir  : 3.3-V LVTTL       :         : 3A        : N              
+RESERVED_INPUT               : AH3       :        :                   :         : 3A        :                
+RESERVED_INPUT               : AH4       :        :                   :         : 3A        :                
+RESERVED_INPUT               : AH5       :        :                   :         : 3A        :                
 GND                          : AH6       : gnd    :                   :         :           :                
 RESERVED_INPUT               : AH7       :        :                   :         : 3B        :                
-RESERVED_INPUT               : AH8       :        :                   :         : 3B        :                
+HPS_GSENSOR_INT              : AH8       : bidir  : 3.3-V LVTTL       :         : 3B        : N              
 RESERVED_INPUT               : AH9       :        :                   :         : 3B        :                
 RESERVED_INPUT               : AH10      :        :                   :         : 3B        :                
 GND                          : AH11      : gnd    :                   :         :           :                
@@ -341,12 +341,12 @@ RESERVED_INPUT               : AH20      :        :                   :         
 GND                          : AH21      : gnd    :                   :         :           :                
 HEX4[6]                      : AH22      : output : 3.3-V LVTTL       :         : 4A        : Y              
 RESERVED_INPUT               : AH23      :        :                   :         : 4A        :                
-RESERVED_INPUT               : AH24      :        :                   :         : 4A        :                
-RESERVED_INPUT               : AH25      :        :                   :         : 4A        :                
+HPS_SPIM_MISO                : AH24      : input  : 3.3-V LVTTL       :         : 4A        : N              
+HPS_FLASH_DCLK               : AH25      : output : 3.3-V LVTTL       :         : 4A        : N              
 VCCIO4A                      : AH26      : power  :                   : 3.3V    : 4A        :                
-HPS_LTC_GPIO                 : AH27      : bidir  : 3.3-V LVTTL       :         : 4A        : N              
+HPS_I2C_CONTROL              : AH27      : bidir  : 3.3-V LVTTL       :         : 4A        : N              
 RESERVED_INPUT               : AH28      :        :                   :         : 5A        :                
-HPS_LCM_BK                   : AH29      : bidir  : 3.3-V LVTTL       :         : 5A        : N              
+RESERVED_INPUT               : AH29      :        :                   :         : 5A        :                
 RESERVED_INPUT               : AH30      :        :                   :         : 5A        :                
 RESERVED_INPUT               : AJ1       :        :                   :         : 3A        :                
 RESERVED_INPUT               : AJ2       :        :                   :         : 3A        :                
@@ -361,20 +361,20 @@ RESERVED_INPUT               : AJ10      :        :                   :         
 RESERVED_INPUT               : AJ11      :        :                   :         : 3B        :                
 RESERVED_INPUT               : AJ12      :        :                   :         : 3B        :                
 VCCIO3B                      : AJ13      : power  :                   : 3.3V    : 3B        :                
-RESERVED_INPUT               : AJ14      :        :                   :         : 3B        :                
+HPS_LCM_SPIM_MOSI            : AJ14      : output : 3.3-V LVTTL       :         : 3B        : N              
 VREFB3BN0                    : AJ15      : power  :                   :         : 3B        :                
-HPS_FLASH_NCSO               : AJ16      : output : 3.3-V LVTTL       :         : 4A        : N              
+RESERVED_INPUT               : AJ16      :        :                   :         : 4A        :                
 RESERVED_INPUT               : AJ17      :        :                   :         : 4A        :                
 GND                          : AJ18      : gnd    :                   :         :           :                
 RESERVED_INPUT               : AJ19      :        :                   :         : 4A        :                
-RESERVED_INPUT               : AJ20      :        :                   :         : 4A        :                
+HPS_I2C2_SDAT                : AJ20      : bidir  : 3.3-V LVTTL       :         : 4A        : N              
 RESERVED_INPUT               : AJ21      :        :                   :         : 4A        :                
-HPS_KEY                      : AJ22      : bidir  : 3.3-V LVTTL       :         : 4A        : N              
+RESERVED_INPUT               : AJ22      :        :                   :         : 4A        :                
 VCCIO4A                      : AJ23      : power  :                   : 3.3V    : 4A        :                
-RESERVED_INPUT               : AJ24      :        :                   :         : 4A        :                
+HPS_LCM_SPIM_SS              : AJ24      : output : 3.3-V LVTTL       :         : 4A        : N              
 RESERVED_INPUT               : AJ25      :        :                   :         : 4A        :                
 RESERVED_INPUT               : AJ26      :        :                   :         : 4A        :                
-SMA_DAC4                     : AJ27      : input  : 2.5 V             :         : 4A        : N              
+RESERVED_INPUT               : AJ27      :        :                   :         : 4A        :                
 GND                          : AJ28      : gnd    :                   :         :           :                
 RESERVED_INPUT               : AJ29      :        :                   :         : 5A        :                
 GND                          : AJ30      : gnd    :                   :         :           :                
@@ -385,27 +385,27 @@ GND                          : AK5       : gnd    :                   :         
 RESERVED_INPUT               : AK6       :        :                   :         : 3B        :                
 RESERVED_INPUT               : AK7       :        :                   :         : 3B        :                
 RESERVED_INPUT               : AK8       :        :                   :         : 3B        :                
-RESERVED_INPUT               : AK9       :        :                   :         : 3B        :                
+HPS_FLASH_DATA[0]            : AK9       : bidir  : 3.3-V LVTTL       :         : 3B        : N              
 VCCIO3B                      : AK10      : power  :                   : 3.3V    : 3B        :                
 RESERVED_INPUT               : AK11      :        :                   :         : 3B        :                
-RESERVED_INPUT               : AK12      :        :                   :         : 3B        :                
+HPS_FLASH_DATA[2]            : AK12      : bidir  : 3.3-V LVTTL       :         : 3B        : N              
 RESERVED_INPUT               : AK13      :        :                   :         : 3B        :                
-HPS_CONV_USB_N               : AK14      : bidir  : 3.3-V LVTTL       :         : 3B        : N              
+RESERVED_INPUT               : AK14      :        :                   :         : 3B        :                
 GND                          : AK15      : gnd    :                   :         :           :                
-RESERVED_INPUT               : AK16      :        :                   :         : 4A        :                
+SMA_DAC4                     : AK16      : input  : 2.5 V             :         : 4A        : N              
 VREFB4AN0                    : AK17      : power  :                   :         : 4A        :                
-HPS_I2C1_SDAT                : AK18      : bidir  : 3.3-V LVTTL       :         : 4A        : N              
+RESERVED_INPUT               : AK18      :        :                   :         : 4A        :                
 RESERVED_INPUT               : AK19      :        :                   :         : 4A        :                
 VCCIO4A                      : AK20      : power  :                   : 3.3V    : 4A        :                
 RESERVED_INPUT               : AK21      :        :                   :         : 4A        :                
 RESERVED_INPUT               : AK22      :        :                   :         : 4A        :                
-RESERVED_INPUT               : AK23      :        :                   :         : 4A        :                
+HPS_LCM_SPIM_CLK             : AK23      : output : 3.3-V LVTTL       :         : 4A        : N              
 RESERVED_INPUT               : AK24      :        :                   :         : 4A        :                
 GND                          : AK25      : gnd    :                   :         :           :                
 RESERVED_INPUT               : AK26      :        :                   :         : 4A        :                
 RESERVED_INPUT               : AK27      :        :                   :         : 4A        :                
-RESERVED_INPUT               : AK28      :        :                   :         : 4A        :                
-HPS_LCM_RST_N                : AK29      : bidir  : 3.3-V LVTTL       :         : 4A        : N              
+HPS_LCM_BK                   : AK28      : bidir  : 3.3-V LVTTL       :         : 4A        : N              
+RESERVED_INPUT               : AK29      :        :                   :         : 4A        :                
 ADC_DB[12]                   : B1        : input  : 2.5 V             :         : 8A        : Y              
 ADC_DB[13]                   : B2        : input  : 2.5 V             :         : 8A        : Y              
 DAC_MODE                     : B3        : output : 2.5 V             :         : 8A        : Y              
@@ -467,7 +467,7 @@ HPS_DDR3_WE_N                : C28       : output : SSTL-15 Class I   :         
 HPS_DDR3_ADDR[13]            : C29       : output : SSTL-15 Class I   :         : 6A        : N              
 HPS_DDR3_ADDR[11]            : C30       : output : SSTL-15 Class I   :         : 6A        : N              
 RESERVED_INPUT               : D1        :        :                   :         : 8A        :                
-HPS_LCM_SPIM_MISO            : D2        : input  : 3.3-V LVTTL       :         : 8A        : N              
+RESERVED_INPUT               : D2        :        :                   :         : 8A        :                
 GND                          : D3        : gnd    :                   :         :           :                
 DAC_DA[13]                   : D4        : output : 2.5 V             :         : 8A        : Y              
 DAC_DA[8]                    : D5        : output : 2.5 V             :         : 8A        : Y              
@@ -533,7 +533,7 @@ nSTATUS                      : F4        :        :                   :         
 GND                          : F5        : gnd    :                   :         :           :                
 DAC_DA[5]                    : F6        : output : 2.5 V             :         : 8A        : Y              
 GND                          : F7        : gnd    :                   :         :           :                
-RESERVED_INPUT               : F8        :        :                   :         : 8A        :                
+HPS_LCM_SPIM_MISO            : F8        : input  : 3.3-V LVTTL       :         : 8A        : N              
 DAC_WRT_B                    : F9        : output : 2.5 V             :         : 8A        : Y              
 DAC_DB[5]                    : F10       : output : 2.5 V             :         : 8A        : Y              
 RESERVED_INPUT               : F11       :        :                   :         : 8A        :                
@@ -908,7 +908,7 @@ GND                          : V19       : gnd    :                   :         
 RESERVED_INPUT               : V20       :        :                   :         : 6B        :                
 GND                          : V21       : gnd    :                   :         :           :                
 VCCPD5A                      : V22       : power  :                   : 3.3V    : 5A        :                
-RESERVED_INPUT               : V23       :        :                   :         : 5A        :                
+HPS_FLASH_DATA[1]            : V23       : bidir  : 3.3-V LVTTL       :         : 5A        : N              
 VCCPD5A                      : V24       : power  :                   : 3.3V    : 5A        :                
 SW[5]                        : V25       : input  : 2.5 V             :         : 5B        : Y              
 VCCIO6B_HPS                  : V26       : power  :                   : 1.5V    : 6B        :                
@@ -930,16 +930,16 @@ GND                          : W11       : gnd    :                   :         
 VCC                          : W12       : power  :                   : 1.1V    :           :                
 GND                          : W13       : gnd    :                   :         :           :                
 VCC                          : W14       : power  :                   : 1.1V    :           :                
-HPS_LCM_D_C                  : W15       : bidir  : 3.3-V LVTTL       :         : 3B        : N              
+RESERVED_INPUT               : W15       :        :                   :         : 3B        :                
 HEX2[6]                      : W16       : output : 3.3-V LVTTL       :         : 4A        : Y              
 HEX0[0]                      : W17       : output : 3.3-V LVTTL       :         : 4A        : Y              
 GND                          : W18       : gnd    :                   :         :           :                
 HEX3[1]                      : W19       : output : 3.3-V LVTTL       :         : 4A        : Y              
-RESERVED_INPUT               : W20       :        :                   :         : 5A        :                
-RESERVED_INPUT               : W21       :        :                   :         : 5A        :                
+HPS_CONV_USB_N               : W20       : bidir  : 3.3-V LVTTL       :         : 5A        : N              
+HPS_SPIM_CLK                 : W21       : output : 3.3-V LVTTL       :         : 5A        : N              
 RESERVED_INPUT               : W22       :        :                   :         : 5A        :                
 VCCIO5A                      : W23       : power  :                   : 3.3V    : 5A        :                
-HPS_LCM_SPIM_SS              : W24       : output : 3.3-V LVTTL       :         : 5A        : N              
+HPS_SPIM_SS                  : W24       : output : 3.3-V LVTTL       :         : 5A        : N              
 SW[4]                        : W25       : input  : 2.5 V             :         : 5B        : Y              
 RESERVED_INPUT               : W26       :        :                   :         : 6B        :                
 RESERVED_INPUT               : W27       :        :                   :         : 6B        :                
@@ -968,7 +968,7 @@ HEX3[0]                      : Y19       : output : 3.3-V LVTTL       :         
 GND                          : Y20       : gnd    :                   :         :           :                
 RESERVED_INPUT               : Y21       :        :                   :         : 5A        :                
 VCCA_FPLL                    : Y22       : power  :                   : 2.5V    :           :                
-RESERVED_INPUT               : Y23       :        :                   :         : 5A        :                
+HPS_I2C2_SCLK                : Y23       : bidir  : 3.3-V LVTTL       :         : 5A        : N              
 RESERVED_INPUT               : Y24       :        :                   :         : 5A        :                
 GND                          : Y25       : gnd    :                   :         :           :                
 CLOCK3_50                    : Y26       : input  : 2.5 V             :         : 5B        : Y              

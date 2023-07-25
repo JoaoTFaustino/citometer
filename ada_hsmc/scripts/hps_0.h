@@ -20,15 +20,159 @@
  */
 
 /*
+ * Macros for device 'data_in_readbuffer', class 'altera_avalon_pio'
+ * The macros are prefixed with 'DATA_IN_READBUFFER_'.
+ * The prefix is the slave descriptor.
+ */
+#define DATA_IN_READBUFFER_COMPONENT_TYPE altera_avalon_pio
+#define DATA_IN_READBUFFER_COMPONENT_NAME data_in_readbuffer
+#define DATA_IN_READBUFFER_BASE 0x0
+#define DATA_IN_READBUFFER_SPAN 16
+#define DATA_IN_READBUFFER_END 0xf
+#define DATA_IN_READBUFFER_BIT_CLEARING_EDGE_REGISTER 0
+#define DATA_IN_READBUFFER_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define DATA_IN_READBUFFER_CAPTURE 0
+#define DATA_IN_READBUFFER_DATA_WIDTH 32
+#define DATA_IN_READBUFFER_DO_TEST_BENCH_WIRING 0
+#define DATA_IN_READBUFFER_DRIVEN_SIM_VALUE 0
+#define DATA_IN_READBUFFER_EDGE_TYPE NONE
+#define DATA_IN_READBUFFER_FREQ 50000000
+#define DATA_IN_READBUFFER_HAS_IN 1
+#define DATA_IN_READBUFFER_HAS_OUT 0
+#define DATA_IN_READBUFFER_HAS_TRI 0
+#define DATA_IN_READBUFFER_IRQ_TYPE NONE
+#define DATA_IN_READBUFFER_RESET_VALUE 0
+
+/*
+ * Macros for device 'data_out_readpointer', class 'altera_avalon_pio'
+ * The macros are prefixed with 'DATA_OUT_READPOINTER_'.
+ * The prefix is the slave descriptor.
+ */
+#define DATA_OUT_READPOINTER_COMPONENT_TYPE altera_avalon_pio
+#define DATA_OUT_READPOINTER_COMPONENT_NAME data_out_readpointer
+#define DATA_OUT_READPOINTER_BASE 0x10
+#define DATA_OUT_READPOINTER_SPAN 16
+#define DATA_OUT_READPOINTER_END 0x1f
+#define DATA_OUT_READPOINTER_BIT_CLEARING_EDGE_REGISTER 0
+#define DATA_OUT_READPOINTER_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define DATA_OUT_READPOINTER_CAPTURE 0
+#define DATA_OUT_READPOINTER_DATA_WIDTH 32
+#define DATA_OUT_READPOINTER_DO_TEST_BENCH_WIRING 0
+#define DATA_OUT_READPOINTER_DRIVEN_SIM_VALUE 0
+#define DATA_OUT_READPOINTER_EDGE_TYPE NONE
+#define DATA_OUT_READPOINTER_FREQ 50000000
+#define DATA_OUT_READPOINTER_HAS_IN 0
+#define DATA_OUT_READPOINTER_HAS_OUT 1
+#define DATA_OUT_READPOINTER_HAS_TRI 0
+#define DATA_OUT_READPOINTER_IRQ_TYPE NONE
+#define DATA_OUT_READPOINTER_RESET_VALUE 0
+
+/*
+ * Macros for device 'data_in_trigger', class 'altera_avalon_pio'
+ * The macros are prefixed with 'DATA_IN_TRIGGER_'.
+ * The prefix is the slave descriptor.
+ */
+#define DATA_IN_TRIGGER_COMPONENT_TYPE altera_avalon_pio
+#define DATA_IN_TRIGGER_COMPONENT_NAME data_in_trigger
+#define DATA_IN_TRIGGER_BASE 0x20
+#define DATA_IN_TRIGGER_SPAN 16
+#define DATA_IN_TRIGGER_END 0x2f
+#define DATA_IN_TRIGGER_BIT_CLEARING_EDGE_REGISTER 0
+#define DATA_IN_TRIGGER_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define DATA_IN_TRIGGER_CAPTURE 0
+#define DATA_IN_TRIGGER_DATA_WIDTH 32
+#define DATA_IN_TRIGGER_DO_TEST_BENCH_WIRING 0
+#define DATA_IN_TRIGGER_DRIVEN_SIM_VALUE 0
+#define DATA_IN_TRIGGER_EDGE_TYPE NONE
+#define DATA_IN_TRIGGER_FREQ 50000000
+#define DATA_IN_TRIGGER_HAS_IN 1
+#define DATA_IN_TRIGGER_HAS_OUT 0
+#define DATA_IN_TRIGGER_HAS_TRI 0
+#define DATA_IN_TRIGGER_IRQ_TYPE NONE
+#define DATA_IN_TRIGGER_RESET_VALUE 0
+
+/*
+ * Macros for device 'data_in_exptime', class 'altera_avalon_pio'
+ * The macros are prefixed with 'DATA_IN_EXPTIME_'.
+ * The prefix is the slave descriptor.
+ */
+#define DATA_IN_EXPTIME_COMPONENT_TYPE altera_avalon_pio
+#define DATA_IN_EXPTIME_COMPONENT_NAME data_in_exptime
+#define DATA_IN_EXPTIME_BASE 0x30
+#define DATA_IN_EXPTIME_SPAN 16
+#define DATA_IN_EXPTIME_END 0x3f
+#define DATA_IN_EXPTIME_BIT_CLEARING_EDGE_REGISTER 0
+#define DATA_IN_EXPTIME_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define DATA_IN_EXPTIME_CAPTURE 0
+#define DATA_IN_EXPTIME_DATA_WIDTH 32
+#define DATA_IN_EXPTIME_DO_TEST_BENCH_WIRING 0
+#define DATA_IN_EXPTIME_DRIVEN_SIM_VALUE 0
+#define DATA_IN_EXPTIME_EDGE_TYPE NONE
+#define DATA_IN_EXPTIME_FREQ 50000000
+#define DATA_IN_EXPTIME_HAS_IN 1
+#define DATA_IN_EXPTIME_HAS_OUT 0
+#define DATA_IN_EXPTIME_HAS_TRI 0
+#define DATA_IN_EXPTIME_IRQ_TYPE NONE
+#define DATA_IN_EXPTIME_RESET_VALUE 0
+
+/*
+ * Macros for device 'data_in_cumsum', class 'altera_avalon_pio'
+ * The macros are prefixed with 'DATA_IN_CUMSUM_'.
+ * The prefix is the slave descriptor.
+ */
+#define DATA_IN_CUMSUM_COMPONENT_TYPE altera_avalon_pio
+#define DATA_IN_CUMSUM_COMPONENT_NAME data_in_cumsum
+#define DATA_IN_CUMSUM_BASE 0x40
+#define DATA_IN_CUMSUM_SPAN 16
+#define DATA_IN_CUMSUM_END 0x4f
+#define DATA_IN_CUMSUM_BIT_CLEARING_EDGE_REGISTER 0
+#define DATA_IN_CUMSUM_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define DATA_IN_CUMSUM_CAPTURE 0
+#define DATA_IN_CUMSUM_DATA_WIDTH 32
+#define DATA_IN_CUMSUM_DO_TEST_BENCH_WIRING 0
+#define DATA_IN_CUMSUM_DRIVEN_SIM_VALUE 0
+#define DATA_IN_CUMSUM_EDGE_TYPE NONE
+#define DATA_IN_CUMSUM_FREQ 50000000
+#define DATA_IN_CUMSUM_HAS_IN 1
+#define DATA_IN_CUMSUM_HAS_OUT 0
+#define DATA_IN_CUMSUM_HAS_TRI 0
+#define DATA_IN_CUMSUM_IRQ_TYPE NONE
+#define DATA_IN_CUMSUM_RESET_VALUE 0
+
+/*
+ * Macros for device 'data_in_samples', class 'altera_avalon_pio'
+ * The macros are prefixed with 'DATA_IN_SAMPLES_'.
+ * The prefix is the slave descriptor.
+ */
+#define DATA_IN_SAMPLES_COMPONENT_TYPE altera_avalon_pio
+#define DATA_IN_SAMPLES_COMPONENT_NAME data_in_samples
+#define DATA_IN_SAMPLES_BASE 0x50
+#define DATA_IN_SAMPLES_SPAN 16
+#define DATA_IN_SAMPLES_END 0x5f
+#define DATA_IN_SAMPLES_BIT_CLEARING_EDGE_REGISTER 0
+#define DATA_IN_SAMPLES_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define DATA_IN_SAMPLES_CAPTURE 0
+#define DATA_IN_SAMPLES_DATA_WIDTH 32
+#define DATA_IN_SAMPLES_DO_TEST_BENCH_WIRING 0
+#define DATA_IN_SAMPLES_DRIVEN_SIM_VALUE 0
+#define DATA_IN_SAMPLES_EDGE_TYPE NONE
+#define DATA_IN_SAMPLES_FREQ 50000000
+#define DATA_IN_SAMPLES_HAS_IN 1
+#define DATA_IN_SAMPLES_HAS_OUT 0
+#define DATA_IN_SAMPLES_HAS_TRI 0
+#define DATA_IN_SAMPLES_IRQ_TYPE NONE
+#define DATA_IN_SAMPLES_RESET_VALUE 0
+
+/*
  * Macros for device 'led', class 'altera_avalon_pio'
  * The macros are prefixed with 'LED_'.
  * The prefix is the slave descriptor.
  */
 #define LED_COMPONENT_TYPE altera_avalon_pio
 #define LED_COMPONENT_NAME led
-#define LED_BASE 0x20
+#define LED_BASE 0x60
 #define LED_SPAN 16
-#define LED_END 0x2f
+#define LED_END 0x6f
 #define LED_BIT_CLEARING_EDGE_REGISTER 0
 #define LED_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LED_CAPTURE 0

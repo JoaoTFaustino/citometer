@@ -1,0 +1,72 @@
+/*
+
+Este módulo tem um tamanho máximo de buffer configurável através do parâmetro MAX_SAMPLES. 
+Ele usa dois ponteiros, wr_ptr e rd_ptr, para controlar a escrita e leitura do buffer circular. 
+O registrador buffer é o buffer circular em si, implementado como um array multidimensional de tamanho MAX_SAMPLES x 14.
+Na borda de subida do clock, o módulo verifica se a entrada enable está ativa. 
+Se estiver, o valor de entrada in_data é armazenado no buffer no endereço apontado por wr_ptr. 
+O ponteiro de escrita wr_ptr é então incrementado para apontar para o próximo endereço no buffer. 
+Se enable não estiver ativo, o buffer não é atualizado.
+
+O módulo também tem um bloco combinacional que calcula o valor de saída out_data. 
+Ele simplesmente retorna o valor armazenado no endereço apontado por rd_ptr. 
+Na borda de subida do clock, se enable estiver ativo, o ponteiro de leitura rd_ptr é incrementado para apontar para o próximo endereço no buffer. 
+Se enable não estiver ativo, o buffer permanece inalterado e o valor de saída out_data permanece o mesmo.
+
+*/
+
+module READ_BUFFER #(
+	parameter MAX_SAMPLES = 16, 						// tamanho máximo do buffer
+	parameter ADDR_BITS = $clog2(MAX_SAMPLES), 	// número de bits necessário para endereçar todo o buffer
+	parameter DWIDTH = 14	 							// Largura de bits de dados de entrada
+)(
+  CLOCK,         		// clock
+  RESET,         		// reset
+  DATA_IN,  			// dados de entrada
+  ENABLE,      		// habilita a leitura/escrita do buffer
+  DATA_OUT,				// dados de saída
+  BUFFER					// buffer
+);
+
+input	CLOCK;      
+input RESET;         
+input [DWIDTH-1:0]	DATA_IN;  
+input	ENABLE;     
+output	[DWIDTH-1:0]	DATA_OUT; 
+
+reg [ADDR_BITS-1:0] wr_addr = 0;  											// ponteiro de escrita
+reg [ADDR_BITS-1:0] rd_addr = 0;  											// ponteiro de leitura
+inout [MAX_SAMPLES-1:0] BUFFER [DWIDTH-1:0] = '{default:'h0}; 		// buffer circular
+  
+always @(posedge CLOCK) 
+begin
+	if (RESET) 
+	begin
+		wr_addr <= 0;
+		rd_addr <= 0;
+		BUFFER <= '{default:'h0};
+	end 
+	
+	else if (ENABLE) 
+	begin
+		BUFFER[wr_addr] <= DATA_IN;
+		wr_addr <= (wr_addr + 1) % MAX_SAMPLES;
+	end
+end
+
+always @(posedge CLOCK) 
+begin
+	if (RESET) 
+	begin
+		rd_addr <= 0;
+	end 
+	
+	else if (ENABLE) 
+	begin
+		rd_addr <= (rd_addr + 1) % MAX_SAMPLES;
+	end
+end
+
+assign DATA_OUT = BUFFER[rd_addr];
+  
+endmodule

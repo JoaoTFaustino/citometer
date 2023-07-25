@@ -1,0 +1,54 @@
+/*
+
+Este módulo tem um tamanho máximo de buffer configurável através do parâmetro MAX_SAMPLES. 
+Ele usa dois ponteiros, wr_ptr e rd_ptr, para controlar a escrita e leitura do buffer circular. 
+O registrador buffer é o buffer circular em si, implementado como um array multidimensional de tamanho MAX_SAMPLES x 14.
+Na borda de subida do clock, o módulo verifica se a entrada enable está ativa. 
+Se estiver, o valor de entrada in_data é armazenado no buffer no endereço apontado por wr_ptr. 
+O ponteiro de escrita wr_ptr é então incrementado para apontar para o próximo endereço no buffer. 
+Se enable não estiver ativo, o buffer não é atualizado.
+
+O módulo também tem um bloco combinacional que calcula o valor de saída out_data. 
+Ele simplesmente retorna o valor armazenado no endereço apontado por rd_ptr. 
+Na borda de subida do clock, se enable estiver ativo, o ponteiro de leitura rd_ptr é incrementado para apontar para o próximo endereço no buffer. 
+Se enable não estiver ativo, o buffer permanece inalterado e o valor de saída out_data permanece o mesmo.
+
+*/
+
+module BUFFER (
+  input clk,         // clock
+  input rst,         // reset
+  input [13:0] in_data,  // dados de entrada
+  input enable,      // habilita a leitura/escrita do buffer
+  output [13:0] out_data // dados de saída
+);
+
+parameter MAX_SAMPLES = 16; // tamanho máximo do buffer
+parameter ADDR_BITS = $clog2(MAX_SAMPLES); // número de bits necessário para endereçar todo o buffer
+
+reg [ADDR_BITS-1:0] wr_ptr = 0;  // ponteiro de escrita
+reg [ADDR_BITS-1:0] rd_ptr = 0;  // ponteiro de leitura
+reg [MAX_SAMPLES-1:0][13:0] buffer = '{default:'h0}; // buffer circular
+  
+always @(posedge clk) begin
+ if (rst) begin
+	wr_ptr <= 0;
+	rd_ptr <= 0;
+	buffer <= '{default:'h0};
+ end else if (enable) begin
+	buffer[wr_ptr] <= in_data;
+	wr_ptr <= (wr_ptr + 1) % MAX_SAMPLES;
+ end
+end
+
+always @(posedge clk) begin
+ if (rst) begin
+	rd_ptr <= 0;
+ end else if (enable) begin
+	rd_ptr <= (rd_ptr + 1) % MAX_SAMPLES;
+ end
+end
+
+assign out_data = buffer[rd_ptr];
+  
+endmodule

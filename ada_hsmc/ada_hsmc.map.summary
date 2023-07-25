@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Fri Apr 21 12:08:40 2023
+Analysis & Synthesis Status : Successful - Tue Jul 11 21:50:45 2023
 Quartus Prime Version : 22.1std.1 Build 917 02/14/2023 SC Lite Edition
 Revision Name : ada_hsmc
 Top-level Entity Name : ada_hsmc
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 432
+Total registers : 10803
 Total pins : 275
 Total virtual pins : 0
 Total block memory bits : 0
